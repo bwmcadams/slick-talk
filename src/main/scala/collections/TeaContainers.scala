@@ -17,6 +17,12 @@
 
 package collections
 
-class TeaContainers {
+case class Supplier(name: String, country: String, url: java.net.URI)
 
+object TeaTypes extends Enumeration {
+  type Color = Value
+  val Black, White, Oolong, Green = Value
 }
+
+
+case class Tea(supplier: Supplier, name: String, kind: TeaTypes.Color, size: String, currency: Character, price: Double)
