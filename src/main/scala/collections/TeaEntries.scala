@@ -60,13 +60,30 @@ object TeaEntries {
 
 
   // this is a method - well defined, and we can call it normally
-  def inDollars(t: Tea): Boolean = t.currency == '$'
+  def costsDollars(t: Tea): Boolean = t.currency == '$'
 
   // this is a function - I just happen to have captured it in a variable
-  val inEuros = (t: Tea) => t.currency == '$'
+  val costsEuros = (t: Tea) => t.currency == '€'
 
-  def filter(p: (Tea) => Boolean): Seq[Tea]
+  /*def filter(p: (Tea) => Boolean): Seq[Tea]
 
-  def groupBy[K](f: (Tea) => K): Map[K, Seq[Tea]]
+  def groupBy[K](f: (Tea) => K): Map[K, Seq[Tea]]*/
+
+  // pass a function we write inline
+  val inEuros = tea.filter(t => t.currency == '€')
+
+  // scala will also "lift" a method into a function when it needs to
+  val inDollars = tea.filter(costsDollars)
+
+  val typesOfTea = tea.groupBy(t => t.kind)
+
+  val typesOfTeaStr = tea.groupBy(t => t.kind.toString)
+
+  TeaEntries.tea.groupBy(t => t.kind.toString).keys
+
+
+  val prices = tea.map(t => "%c%3.2f per %s".format(t.currency, t.price, t.size))
+
+     //def flatMap[B](f: (Tea) => Traversable[B]): Seq[B]
 
 }
